@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+"""pascal_triangle module."""
+
+
 def pascal_triangle(n):
     """ Function that returns the pascal triangle
 
@@ -9,22 +12,14 @@ def pascal_triangle(n):
         matrix: a matrix with the pascal triangle
 
     """
+    if n <= 0:
+        return []
 
-    matrix = []
-    prev = []
-
-    for i in range(n):
-        res_list = []
-        p1 = -1
-        p2 = 0
-        for j in range(len(prev) + 1):
-            if p1 == -1 or p2 == len(prev):
-                res_list += [1]
-            else:
-                res_list += [prev[p1] + prev[p2]]
-            p1 += 1
-            p2 += 1
-        matrix.append(res_list)
-        prev = res_list[:]
-
-    return matrix
+    res = [[1]]
+    while len(res) is not n:
+        mat = [1]
+        for i in range(len(res[-1]) - 1):
+            mat.append(res[-1][i] + res[-1][i + 1])
+        mat.append(1)
+        res.append(mat)
+    return res
